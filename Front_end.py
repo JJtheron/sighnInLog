@@ -1,9 +1,10 @@
 import tkinter as tk
 from tkinter import messagebox
 from tkinter import ttk
+from queue import Queue
 import controller
 
-class manual_entry_window(tk.Tk()):
+class manual_entry_window(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("User Information")
@@ -46,17 +47,31 @@ class manual_entry_window(tk.Tk()):
 
         return user_info
 
-class main_window(tk.Tk()):
+class main_window(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("User Information")
+        self.protocol("WM_DELETE_WINDOW", self.on_closing)
+        self.run()
+    
+    def insert_new_entry(self,tree,**kwargs):
+        tree.insert(
+        "",
+        tk.END,
+        text=kwargs["ID"],
+        values=(kwargs["Name"],kwargs["Time In"],kwargs["Time Out"],kwargs["Company Name"],kwargs["Visiting Who?"], kwargs["Phone Number"])
+        )    
+        
+    
+    def edit_entry(self,uniqueID):
+        return True
+ 
+    def on_closing(self):
+        if messagebox.askokcancel("Quit", "Do you want to quit?"):
+            self.destroy()
 
     def run(self):
-        def on_closing():
-            if messagebox.askokcancel("Quit", "Do you want to quit?"):
-                self.destroy()
-        self.title("User Information")
-        self.protocol("WM_DELETE_WINDOW", on_closing)
+        self.protocol("WM_DELETE_WINDOW", self.on_closing)
         # Create a treeview with scrollbars
         tree = ttk.Treeview(self, columns=("Name", "Time In", "Time Out", "Company Name", "Visiting Who?", "Phone Number"), show="headings")
         vsb = ttk.Scrollbar(self, orient="vertical", command=tree.yview)
@@ -69,19 +84,6 @@ class main_window(tk.Tk()):
         # Create column headings
         for col in ("Name", "Time In", "Time Out", "Company Name", "Visiting Who?", "Phone Number"):
             tree.heading(col, text=col)
-        
-        tree.insert(
-        "",
-        tk.END,
-        text="UniquiID2",
-        values=("JJ","now","later","wy","All my peeps", "18:30")
-        )
-        tree.insert(
-        "",
-        tk.END,
-        text="UniquiID",
-        values=("JjJ","now","later","wy","All my peeps", "18:30")
-        )
 
         # Function to handle 'Check In' button click
         def check_in():
@@ -98,3 +100,7 @@ class main_window(tk.Tk()):
         # Create 'Check In' button
         tk.Button(self, text="Check In", command=check_in).grid(column=0, row=2)
 # Call the function
+
+if __name__ == "__main__":
+    new_main = main_window()
+    new_main.mainloop()

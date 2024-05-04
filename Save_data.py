@@ -7,7 +7,6 @@ class Write_data_to_disk(Thread):
 
     def run(self):
         try:           
-            input()
             self.queue.put("Data_written")
         finally:
             return "fail"
@@ -19,7 +18,6 @@ class Read_data_from_disk(Thread):
 
     def run(self):
         try:           
-            input()
-            self.queue.put("Data_")
+            self.queue.put("Data_That_was_read")
         finally:
             return "fail"

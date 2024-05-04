@@ -7,9 +7,12 @@ import Save_data
 
 
 class Controller(Thread):
-    def __init__(self,rfid_queue,writing_queue,reading_queue):
+    def __init__(self,command, rfid_queue,writing_queue,reading_queue):
         super().__init__()
 
+        self.action = command
+        self.WRITE_DATA = "write"
+        self.READ_DATA = "read"
         self.RFIDthreads = [] 
         self.reading_threads = []
         self.writing_threads = []
@@ -18,14 +21,21 @@ class Controller(Thread):
         self.WRITTING_QUEUE = writing_queue
         self.READING_QUEUE = reading_queue
 
+    def __read_command_start(self):
+        command = self.action.get()
+        match command:
+            case self.WRITE_DATA:
+                self.__start_writing_queue()
+            case self.READ_DATA:
+                self.__start_reading_queue()   
+
+
     def run(self):
-        self.__start_reading_queue()
         self.__start_rfid_queue()
-        self.__start_writing_queue()
-        
         while True:
-            if self.check_queues(q):
-                return
+            if self.action.empty():
+                self.__read_command_start()
+                
             sleep(1)
 
     def __start_rfid_queue(self):
