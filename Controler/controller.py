@@ -1,9 +1,9 @@
 from threading import Thread
 from threading import Lock
-import Listen_for_rfid
+import Model.Listen_for_rfid as Listen_for_rfid
 from queue import Queue
 from time import sleep
-import Save_data
+import Model.Save_data as Save_data
 
 
 class Controller(Thread):
