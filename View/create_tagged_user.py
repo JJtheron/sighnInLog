@@ -2,15 +2,15 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
 
-class entry_window(tk.Frame):
+class entry_window_tagged(tk.Frame):
     def __init__(self,parent):
         super().__init__(parent)
-        parent.title("User Information")
+        parent.title("User Information+Tag")
         self.grid(row=0, column=0, padx=10, pady=10)
         # Create a dictionary to store user input
         self.user_info = {}
         self.labels = []
-        get_user_info = {"Name": tk.StringVar(), "Company Name": tk.StringVar(), "Person Visiting": tk.StringVar(), "Phone Number": tk.StringVar()}
+        get_user_info = {"Name": tk.StringVar(), "Company Name": tk.StringVar(), "Person Visiting": tk.StringVar(), "Phone Number": tk.StringVar(), "Tag#": tk.StringVar()}
         # Create labels and entry fields
         labels = list(get_user_info.keys())
         for i in range(len(labels)):
@@ -32,8 +32,8 @@ class entry_window(tk.Frame):
 
         # Create 'Submit' and 'Cancel' buttons
         submit_button = tk.Button(self, text="Submit", state="disabled", command=submit)
-        submit_button.grid(row=4, column=0)
-        tk.Button(self, text="Cancel", command=cancel).grid(row=4, column=1)
+        submit_button.grid(row=5, column=0)
+        tk.Button(self, text="Cancel", command=cancel).grid(row=5, column=1)
 
         # Function to enable 'Submit' button
         def enable_submit(*args):

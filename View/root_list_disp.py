@@ -2,6 +2,8 @@ import tkinter as tk
 from tkinter import messagebox
 from tkinter import ttk
 from View.edit_create_form import entry_window
+from View.create_tagged_user import entry_window_tagged
+from View.edit_entry import Edit_entry
 
 class main_window(tk.Tk):
     def __init__(self):
@@ -40,9 +42,18 @@ class main_window(tk.Tk):
         child.transient(self)
         entry_window(child)
 
+    # enter a newtag assiciated with person
+    def check_in_tag(self):
+        child = tk.Toplevel(self)
+        child.transient(self)
+        entry_window_tagged(child)
+
     # Function to handle row click
     def on_click(self,event):
         item = self.tree.identify('item', event.x, event.y)
+        child = tk.Toplevel(self)
+        child.transient(self)
+        Edit_entry(child)
         print("You clicked on", self.tree.item(item, "values"), self.tree.item(item, "text"))
 
     def run(self):
@@ -56,3 +67,4 @@ class main_window(tk.Tk):
 
         # Create 'Check In' button
         tk.Button(self, text="Check In", command=self.check_in).grid(column=0, row=2)
+        tk.Button(self, text="Add Tag", command=self.check_in_tag).grid(column=1, row=2)
