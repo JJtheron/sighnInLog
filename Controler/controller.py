@@ -3,7 +3,7 @@ from threading import Lock
 import Model.Listen_for_rfid as Listen_for_rfid
 from queue import Queue
 from time import sleep
-import Model.Save_data as Save_data
+import Model.Database_talk as Database_talk
 
 
 class Controller(Thread):
@@ -45,13 +45,13 @@ class Controller(Thread):
             t.start()
     
     def __start_reading_queue(self):
-        Reading = Save_data.Read_data_from_disk(self.READING_QUEUE)
+        Reading = Database_talk.Read_data_from_disk(self.READING_QUEUE)
         self.reading_threads.append(Reading)
         for t in self.threads:
             t.start()
 
     def __start_writing_queue(self):
-        Writing = Save_data.Write_data_to_disk(self.WRITTING_QUEUE)
+        Writing = Database_talk.Write_data_to_disk(self.WRITTING_QUEUE)
         self.writing_threads.append(Writing)
         for t in self.threads:
             t.start()

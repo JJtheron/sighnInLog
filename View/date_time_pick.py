@@ -6,7 +6,7 @@ from tkinter import messagebox
 from datetime import datetime
 
 class date_time(tk.Frame):
-    def __init__(self,parent,date_a_time):
+    def __init__(self,parent):
         super().__init__(parent)
         now = datetime.now()
         parent.title("Select Date")
@@ -15,7 +15,6 @@ class date_time(tk.Frame):
         self.min_string=StringVar(value=now.strftime("%M"))
         self.sec_string= StringVar(value=now.strftime("%S"))       
         self.f = ('Times', 20)
-        self.dnt = date_a_time
         self.parent=parent
         self.cal = Calendar(
             self, 
@@ -76,9 +75,7 @@ class date_time(tk.Frame):
         m = self.min_string.get()
         h = self.hour_string.get()
         s = self.sec_string.get()
-        date_split = date.split("/")
-        self.dnt.DATE_TIME = {"year":int(date_split[0]),"month":int(date_split[1]),"day":int(date_split[2]),"hour":int(h),"min":int(m),"sec":int(s)}
-
+        self.parent.uncle.get_user_info[self.parent.uncle.time_in_or_out].set(f"{date} , {h}:{m}:{s}")
         self.destroy()
         self.parent.destroy()
         
@@ -94,73 +91,3 @@ class date_time(tk.Frame):
         if last_value == "59":
             self.hour_string.set(int(self.hour_string.get())+1 if self.hour_string.get() !="23" else 0)            
             last_value_sec = self.sec_hour.get()
-        """
-        fone = Frame(ws)
-        ftwo = Frame(ws)
-
-        fone.pack(pady=10)
-        ftwo.pack(pady=10)
-        """
-        """
-        min_sb = Spinbox(
-            ftwo,
-            from_=0,
-            to=23,
-            wrap=True,
-            textvariable=hour_string,
-            width=2,
-            state="readonly",
-            font=f,
-            justify=CENTER
-            )
-        sec_hour = Spinbox(
-            ftwo,
-            from_=0,
-            to=59,
-            wrap=True,
-            textvariable=min_string,
-            font=f,
-            width=2,
-            justify=CENTER
-            )
-
-        sec = Spinbox(
-            ftwo,
-            from_=0,
-            to=59,
-            wrap=True,
-            textvariable=sec_hour,
-            width=2,
-            font=f,
-            justify=CENTER
-            )
-
-        min_sb.pack(side=LEFT, fill=X, expand=True)
-        sec_hour.pack(side=LEFT, fill=X, expand=True)
-        sec.pack(side=LEFT, fill=X, expand=True)
-
-        msg = Label(
-            ws, 
-            text="Hour  Minute  Seconds",
-            font=("Times", 12),
-            bg="#cd950c"
-            )
-        msg.pack(side=TOP)
-
-        actionBtn =Button(
-            ws,
-            text="Submit",
-            padx=10,
-            pady=10,
-            command=display_msg
-        )
-        actionBtn.pack(pady=10)
-
-        msg_display = Label(
-            ws,
-            text="",
-            bg="#cd950c"
-        )
-        msg_display.pack(pady=10)
-        """
-

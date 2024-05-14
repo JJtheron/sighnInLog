@@ -9,11 +9,12 @@ class Edit_entry(tk.Frame):
         parent.title("User Information")
         self.grid(row=0, column=0, padx=10, pady=10)
         # Create a dictionary to store user input
-        self.time={"year":0,"month":0,"day":0,"hour":0,"min":0,"sec":0}
-        self.time_in={}
-        self.time_out={}
+        self.time_in={"year":0,"month":0,"day":0,"hour":0,"min":0,"sec":0}
+        self.time_out={"year":0,"month":0,"day":0,"hour":0,"min":0,"sec":0}
+        
         self.user_info = {}
         self.labels = []
+        self.time_in_or_out = ""
         self.get_user_info = {"Name": tk.StringVar(), "Company Name": tk.StringVar(), "Person Visiting": tk.StringVar(), "Phone Number": tk.StringVar(), "TimeIn":tk.StringVar(), "TimeOut":tk.StringVar()}
         # Create labels and entry fields
         labels = list(self.get_user_info.keys())
@@ -25,24 +26,19 @@ class Edit_entry(tk.Frame):
         def pick_time_in():
             child = tk.Toplevel(self)
             child.transient(self)
-            mydate_and_time = date_and_time()
-            date_time(child,mydate_and_time)
-            self.time = mydate_and_time.DATE_TIME
-            self.time_in = self.time
-            self.get_user_info["TimeIn"] = return_time_as_a_string(self.time_in)
+            self.time_in_or_out = "TimeIn"
+            child.uncle = self
+            date_time(child)
+            
 
         
         def pick_time_out():
             child = tk.Toplevel(self)
             child.transient(self)
-            mydate_and_time = date_and_time()
-            date_time(child,mydate_and_time)
-            self.time = mydate_and_time.DATE_TIME
-            self.time_out = self.time
-            self.get_user_info["TimeOut"] = return_time_as_a_string(self.time_out)
+            self.time_in_or_out = "TimeOut"
+            child.uncle = self
+            date_time(child)
 
-        def return_time_as_a_string(time_dic):
-            return f"{time_dic["year"]}/{time_dic["month"]}/{time_dic["day"]}  {time_dic["hour"]}:{time_dic["min"]}:{time_dic["sec"]}"
 
         def submit():
             for key in self.user_info:
@@ -67,13 +63,10 @@ class Edit_entry(tk.Frame):
 
         # Function to enable 'Submit' button
         def enable_submit(*args):
-            if get_user_info["Name"].get():
+            if self.get_user_info["Name"].get():
                 submit_button.config(state="normal")
             else:
                 submit_button.config(state="disabled")
 
         # Monitor the 'Name' field
         self.get_user_info["Name"].trace_add("write", enable_submit)
-
-class date_and_time():
-    DATE_TIME={}
