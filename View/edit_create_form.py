@@ -6,6 +6,7 @@ class entry_window(tk.Frame):
     def __init__(self,parent):
         super().__init__(parent)
         parent.title("User Information")
+        self.parent = parent
         self.grid(row=0, column=0, padx=10, pady=10)
         # Create a dictionary to store user input
         self.user_info = {}

@@ -9,6 +9,7 @@ class entry_window_tagged(tk.Frame):
         self.grid(row=0, column=0, padx=10, pady=10)
         # Create a dictionary to store user input
         self.user_info = {}
+        self.parent = parent
         self.labels = []
         get_user_info = {"Name": tk.StringVar(), "Company Name": tk.StringVar(), "Person Visiting": tk.StringVar(), "Phone Number": tk.StringVar(), "Tag#": tk.StringVar()}
         # Create labels and entry fields

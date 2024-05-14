@@ -1,8 +1,6 @@
 from tkinter import *
 from tkcalendar import *
 import tkinter as tk
-from tkinter import ttk
-from tkinter import messagebox
 from datetime import datetime
 
 class date_time(tk.Frame):

@@ -40,12 +40,14 @@ class main_window(tk.Tk):
     def check_in(self):
         child = tk.Toplevel(self)
         child.transient(self)
+        child.main_window = self
         entry_window(child)
 
     # enter a newtag assiciated with person
     def check_in_tag(self):
         child = tk.Toplevel(self)
         child.transient(self)
+        child.main_window = self
         entry_window_tagged(child)
 
     # Function to handle row click
@@ -53,6 +55,7 @@ class main_window(tk.Tk):
         item = self.tree.identify('item', event.x, event.y)
         child = tk.Toplevel(self)
         child.transient(self)
+        child.main_window = self
         Edit_entry(child)
         print("You clicked on", self.tree.item(item, "values"), self.tree.item(item, "text"))
 

@@ -7,6 +7,7 @@ class Edit_entry(tk.Frame):
     def __init__(self,parent):
         super().__init__(parent)
         parent.title("User Information")
+        self.parent = parent
         self.grid(row=0, column=0, padx=10, pady=10)
         # Create a dictionary to store user input
         self.time_in={"year":0,"month":0,"day":0,"hour":0,"min":0,"sec":0}
