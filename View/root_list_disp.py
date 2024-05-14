@@ -6,10 +6,14 @@ from View.create_tagged_user import entry_window_tagged
 from View.edit_entry import Edit_entry
 
 class main_window(tk.Tk):
-    def __init__(self):
+    def __init__(self,rfid_queue_in,rfid_queue_out,writing_queue,reading_queue):
         super().__init__()
         self.title("User Information")
         self.protocol("WM_DELETE_WINDOW", self.on_closing)
+        self.rfid_queue_in = rfid_queue_in
+        self.rfid_queue_out = rfid_queue_out
+        self.writing_queue = writing_queue
+        self.reading_queue = reading_queue
         # Create a treeview with scrollbars
         self.tree = ttk.Treeview(self, columns=("Name", "Time In", "Time Out", "Company Name", "Visiting Who?", "Phone Number"), show="headings")
         self.vsb = ttk.Scrollbar(self, orient="vertical", command=self.tree.yview)

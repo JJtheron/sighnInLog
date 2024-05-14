@@ -8,6 +8,6 @@ writing_queue = Queue()
 reading_queue = Queue()
 
 
-start_window = root.main_window()
+start_window = root.main_window(rfid_queue_in,rfid_queue_out,writing_queue,reading_queue)
 
 start_window.mainloop()
