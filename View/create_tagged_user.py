@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
+from Controler.C_create_tagged_user import c_entry_window_tag
 
 class entry_window_tagged(tk.Frame):
     def __init__(self,parent):
@@ -11,9 +12,11 @@ class entry_window_tagged(tk.Frame):
         self.user_info = {}
         self.parent = parent
         self.labels = []
-        get_user_info = {"Name": tk.StringVar(), "Company Name": tk.StringVar(), "Person Visiting": tk.StringVar(), "Phone Number": tk.StringVar(), "Tag#": tk.StringVar()}
+        self.controller = c_entry_window_tag(self)
+        get_user_info = {"Name": tk.StringVar(), "Company Name": tk.StringVar(), "Phone Number": tk.StringVar(), "Tag#": tk.StringVar()}
         # Create labels and entry fields
         labels = list(get_user_info.keys())
+
         for i in range(len(labels)):
             self.labels.append(tk.Label(self, text=labels[i]).grid(row=i))
             self.user_info[labels[i]] = tk.Entry(self,textvariable=get_user_info[labels[i]],width=17)
@@ -22,7 +25,7 @@ class entry_window_tagged(tk.Frame):
         def submit():
             for key in self.user_info:
                 self.user_info[key] = self.user_info[key].get()
-            messagebox.showinfo("Saved", "User information saved.")
+            self.controller.submit_info()
             self.destroy()
             parent.destroy()
 

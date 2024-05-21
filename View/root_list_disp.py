@@ -4,6 +4,7 @@ from tkinter import ttk
 from View.edit_create_form import entry_window
 from View.create_tagged_user import entry_window_tagged
 from View.edit_entry import Edit_entry
+from Controler import C_create_tagged_user
 
 class main_window(tk.Tk):
     def __init__(self,rfid_queue_in,rfid_queue_out,writing_queue,reading_queue):
@@ -53,6 +54,7 @@ class main_window(tk.Tk):
         child.transient(self)
         child.main_window = self
         entry_window_tagged(child)
+
 
     # Function to handle row click
     def on_click(self,event):
