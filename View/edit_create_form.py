@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
+from Controler.C_edit_create_form import c_create_entry
 
 class entry_window(tk.Frame):
     def __init__(self,parent):
@@ -8,12 +9,14 @@ class entry_window(tk.Frame):
         parent.title("User Information")
         self.parent = parent
         self.grid(row=0, column=0, padx=10, pady=10)
+        self.controller = c_create_entry(self)
         # Create a dictionary to store user input
         self.user_info = {}
         self.labels = []
         get_user_info = {"Name": tk.StringVar(), "Company Name": tk.StringVar(), "Person Visiting": tk.StringVar(), "Phone Number": tk.StringVar()}
         # Create labels and entry fields
         labels = list(get_user_info.keys())
+
         for i in range(len(labels)):
             self.labels.append(tk.Label(self, text=labels[i]).grid(row=i))
             self.user_info[labels[i]] = tk.Entry(self,textvariable=get_user_info[labels[i]],width=17)
@@ -22,7 +25,7 @@ class entry_window(tk.Frame):
         def submit():
             for key in self.user_info:
                 self.user_info[key] = self.user_info[key].get()
-            messagebox.showinfo("Saved", "User information saved.")
+            self.controller.submit_info()
             self.destroy()
             parent.destroy()
 
