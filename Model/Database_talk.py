@@ -21,17 +21,27 @@ class Read_write_data():
         rec_500 = {"key":"","name":"","time_in":"","time_out":"","company_name":"","visiting_who":"","phone":""}
         sql="""SELECT * FROM sign_in_sheet
         ORDER BY time_in
-        DESC LIMIT 500
+        ASC LIMIT 500
         """
         self.mycursor.execute(sql)
         top_500_records = []
         for i in self.mycursor.fetchall():
-            top_500_records.append({"key":i[0],"name":i[1],
-                                    "time_in":i[2].strftime('%Y-%m-%d %H:%M:%S'),
-                                    "time_out":i[3].strftime('%Y-%m-%d %H:%M:%S'),
-                                    "company_name":i[5],
-                                    "visiting_who":i[6],
-                                    "phone":i[7]})
+            if i[3]:
+                top_500_records.append({"en_id":i[0],"name":i[1],
+                                        "time_in":i[2].strftime('%Y-%m-%d %H:%M:%S'),
+                                        "time_out":i[3].strftime('%Y-%m-%d %H:%M:%S'),
+                                        "tag":i[4],
+                                        "company_name":i[5],
+                                        "visiting_who":i[6],
+                                        "phone":i[7]})
+            else:
+                top_500_records.append({"en_id":i[0],"name":i[1],
+                        "time_in":i[2].strftime('%Y-%m-%d %H:%M:%S'),
+                        "time_out":None,
+                        "tag":i[4],
+                        "company_name":i[5],
+                        "visiting_who":i[6],
+                        "phone":i[7]})
         return top_500_records
     
     def get_spisific_rec(self,key):
@@ -54,7 +64,6 @@ class Read_write_data():
         sqlshow = f"""SELECT  en_id from sign_in_sheet where 
         name='{rec_add["name"]}' AND
         time_in='{rec_add["time_in"]}' AND
-        time_out='{rec_add["time_out"]}' AND
         company='{rec_add["company_name"]}' AND
         visiting='{rec_add["visiting_who"]}' AND
         phone_number='{rec_add["phone"]}'

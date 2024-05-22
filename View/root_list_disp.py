@@ -4,7 +4,7 @@ from tkinter import ttk
 from View.edit_create_form import entry_window
 from View.create_tagged_user import entry_window_tagged
 from View.edit_entry import Edit_entry
-from Controler import C_create_tagged_user
+from Controler.C_root_list_dsip import c_root_list_dsip
 
 class main_window(tk.Tk):
     def __init__(self,rfid_queue_in,rfid_queue_out,writing_queue,reading_queue):
@@ -15,8 +15,9 @@ class main_window(tk.Tk):
         self.rfid_queue_out = rfid_queue_out
         self.writing_queue = writing_queue
         self.reading_queue = reading_queue
+        self.controller = c_root_list_dsip(self)
         # Create a treeview with scrollbars
-        self.tree = ttk.Treeview(self, columns=("Name", "Time In", "Time Out", "Company Name", "Visiting Who?", "Phone Number"), show="headings")
+        self.tree = ttk.Treeview(self, columns=("Name", "Time In", "Time Out", "Company Name", "Person Visiting", "Phone Number"), show="headings")
         self.vsb = ttk.Scrollbar(self, orient="vertical", command=self.tree.yview)
         self. hsb = ttk.Scrollbar(self, orient="horizontal", command=self.tree.xview)
         self.tree.configure(yscrollcommand=self.vsb.set, xscrollcommand=self.hsb.set)
@@ -25,12 +26,12 @@ class main_window(tk.Tk):
         self.hsb.grid(column=0, row=1, sticky='ew')
         self.run()
         
-    def insert_new_entry(self,tree,**kwargs):
-        tree.insert(
+    def insert_new_entry(self,data_entry):
+        self.tree.insert(
         "",
-        tk.END,
-        text=kwargs["ID"],
-        values=(kwargs["Name"],kwargs["Time In"],kwargs["Time Out"],kwargs["Company Name"],kwargs["Visiting Who?"], kwargs["Phone Number"])
+        0,
+        text=data_entry["ID"],
+        values=(data_entry["Name"],data_entry["Time In"],data_entry["Time Out"],data_entry["Company Name"],data_entry["Person Visiting"], data_entry["Phone Number"])
         )    
         
     
@@ -68,7 +69,7 @@ class main_window(tk.Tk):
     def run(self):
 
         # Create column headings
-        for col in ("Name", "Time In", "Time Out", "Company Name", "Visiting Who?", "Phone Number"):
+        for col in ("Name", "Time In", "Time Out", "Company Name", "Person Visiting", "Phone Number"):
             self.tree.heading(col, text=col)
 
         # Bind the click event to the handler
@@ -77,3 +78,4 @@ class main_window(tk.Tk):
         # Create 'Check In' button
         tk.Button(self, text="Check In", command=self.check_in).grid(column=0, row=2)
         tk.Button(self, text="Add Tag", command=self.check_in_tag).grid(column=1, row=2)
+        self.controller.populate_list()

@@ -23,6 +23,7 @@ class Edit_entry(tk.Frame):
             self.labels.append(tk.Label(self, text=labels[i]).grid(row=i))
             self.user_info[labels[i]] = tk.Entry(self,textvariable=self.get_user_info[labels[i]],width=17)
             self.user_info[labels[i]].grid(row=i, column=1)
+        
         # Function to handle 'Submit' button click
         def pick_time_in():
             child = tk.Toplevel(self)
