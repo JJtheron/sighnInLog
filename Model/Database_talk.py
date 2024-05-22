@@ -42,6 +42,7 @@ class Read_write_data():
                         "company_name":i[5],
                         "visiting_who":i[6],
                         "phone":i[7]})
+        self.mydb.commit()
         return top_500_records
     
     def get_spisific_rec(self,key):
@@ -66,6 +67,7 @@ class Read_write_data():
                         "company_name":i[5],
                         "visiting_who":i[6],
                         "phone":i[7]}
+        self.mydb.commit()
         return rec_1
     
     def add_record(self,rec_add):

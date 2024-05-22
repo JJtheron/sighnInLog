@@ -1,4 +1,5 @@
 from Model.Database_talk import Read_write_data
+from datetime import datetime
 
 import time
 class c_edit_create():
@@ -29,12 +30,13 @@ class c_edit_create():
         return display_values
     
     def submit_info(self,en_id):
-        send_data={}
+        send_data = {}
+        send_data["time_out"]= None
         for key in self.window.user_info:
             send_data[self.translation[key]]=self.window.user_info[key]
-        send_data["time_out"] = None
+        if send_data["time_out"]:
+            send_data["time_out"]= datetime.strptime(send_data["time_out"], '%m/%d/%y %H:%M:%S')
         self.window.user_info["ID"] = self.WRdata.change_record(en_id,send_data)
         for item in self.window.parent.main_window.tree.get_children():
             self.window.parent.main_window.tree.delete(item)
-        time.sleep(1)
         self.window.parent.main_window.controller.populate_list()

@@ -73,7 +73,7 @@ class date_time(tk.Frame):
         m = self.min_string.get()
         h = self.hour_string.get()
         s = self.sec_string.get()
-        self.parent.uncle.get_user_info[self.parent.uncle.time_in_or_out].set(f"{date} , {h}:{m}:{s}")
+        self.parent.uncle.get_user_info[self.parent.uncle.time_in_or_out].set(f"{date} {h}:{m}:{s}")
         self.destroy()
         self.parent.destroy()
         
