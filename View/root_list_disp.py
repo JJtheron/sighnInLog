@@ -32,7 +32,7 @@ class main_window(tk.Tk):
         0,
         text=data_entry["ID"],
         values=(data_entry["Name"],data_entry["Time In"],data_entry["Time Out"],data_entry["Company Name"],data_entry["Person Visiting"], data_entry["Phone Number"])
-        )    
+        )
         
     
     def edit_entry(self,uniqueID):
@@ -60,11 +60,13 @@ class main_window(tk.Tk):
     # Function to handle row click
     def on_click(self,event):
         item = self.tree.identify('item', event.x, event.y)
+        self.tree.item(item).update()
         child = tk.Toplevel(self)
         child.transient(self)
         child.main_window = self
-        Edit_entry(child)
-        print("You clicked on", self.tree.item(item, "values"), self.tree.item(item, "text"))
+        Edit_entry(child,self.tree.item(item, "text"),item)
+        
+        
 
     def run(self):
 

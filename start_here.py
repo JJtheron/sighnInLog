@@ -1,4 +1,3 @@
-import View
 import View.root_list_disp as root
 from queue import Queue
 

@@ -50,12 +50,22 @@ class Read_write_data():
         rec_1 = {}
         self.mycursor.execute(sqlshow)
         for i in self.mycursor.fetchall():
-            rec_1 = {"key":i[0],"name":i[1],
-                     "time_in":i[2].strftime('%Y-%m-%d %H:%M:%S'),
-                     "time_out":i[3].strftime('%Y-%m-%d %H:%M:%S'),
-                     "company_name":i[5],
-                     "visiting_who":i[6],
-                     "phone":i[7]}
+            if i[3]:
+                rec_1 = {"en_id":i[0],"name":i[1],
+                        "time_in":i[2].strftime('%Y-%m-%d %H:%M:%S'),
+                        "time_out":i[3].strftime('%Y-%m-%d %H:%M:%S'),
+                        "tag":i[4],
+                        "company_name":i[5],
+                        "visiting_who":i[6],
+                        "phone":i[7]}
+            else:
+                rec_1 = {"en_id":i[0],"name":i[1],
+                        "time_in":i[2].strftime('%Y-%m-%d %H:%M:%S'),
+                        "time_out":None,
+                        "tag":i[4],
+                        "company_name":i[5],
+                        "visiting_who":i[6],
+                        "phone":i[7]}
         return rec_1
     
     def add_record(self,rec_add):
@@ -74,15 +84,25 @@ class Read_write_data():
         return self.mycursor.fetchall()[0][0]
     
     def change_record(self,key,new_record):
-        sql = f"""UPDATE sign_in_sheet
-                    SET name = '{new_record["name"]}',
-                    time_in = '{new_record["time_in"]}',
-                    time_out = '{new_record["time_out"]}',
-                    company = '{new_record["company_name"]}',
-                    visiting = '{new_record["visiting_who"]}',
-                    phone_number = '{new_record["phone"]}'
-                    WHERE en_id = '{key}'
-        """
+        if new_record["time_out"]:
+            sql = f"""UPDATE sign_in_sheet
+                        SET name = '{new_record["name"]}',
+                        time_in = '{new_record["time_in"]}',
+                        time_out = '{new_record["time_out"]}',
+                        company = '{new_record["company_name"]}',
+                        visiting = '{new_record["visiting_who"]}',
+                        phone_number = '{new_record["phone"]}'
+                        WHERE en_id = '{key}'
+            """
+        else:
+            sql = f"""UPDATE sign_in_sheet
+                        SET name = '{new_record["name"]}',
+                        time_in = '{new_record["time_in"]}',
+                        company = '{new_record["company_name"]}',
+                        visiting = '{new_record["visiting_who"]}',
+                        phone_number = '{new_record["phone"]}'
+                        WHERE en_id = '{key}'
+            """
         self.mycursor.execute(sql)
         self.mydb.commit()
         updated_record = self.get_spisific_rec(key)
