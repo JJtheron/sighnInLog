@@ -7,14 +7,10 @@ from View.edit_entry import Edit_entry
 from Controler.C_root_list_dsip import c_root_list_dsip
 
 class main_window(tk.Tk):
-    def __init__(self,rfid_queue_in,rfid_queue_out,writing_queue,reading_queue):
+    def __init__(self):
         super().__init__()
         self.title("User Information")
         self.protocol("WM_DELETE_WINDOW", self.on_closing)
-        self.rfid_queue_in = rfid_queue_in
-        self.rfid_queue_out = rfid_queue_out
-        self.writing_queue = writing_queue
-        self.reading_queue = reading_queue
         self.controller = c_root_list_dsip(self)
         # Create a treeview with scrollbars
         self.tree = ttk.Treeview(self, columns=("Name", "Time In", "Time Out", "Company Name", "Person Visiting", "Phone Number"), show="headings")
