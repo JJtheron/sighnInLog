@@ -17,6 +17,8 @@ class c_root_list_dsip():
                                       "Copy_is_evel",
                                       "sighn_in_sighn_out")
     def populate_list(self):
+        for item in self.window.tree.get_children():
+            self.window.tree.delete(item)
         last500ent = self.WRdata.get_last_500()
         for row in last500ent:
             display_values = {}

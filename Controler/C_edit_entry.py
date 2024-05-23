@@ -37,6 +37,4 @@ class c_edit_create():
         if send_data["time_out"]:
             send_data["time_out"]= datetime.strptime(send_data["time_out"], '%m/%d/%y %H:%M:%S')
         self.window.user_info["ID"] = self.WRdata.change_record(en_id,send_data)
-        for item in self.window.parent.main_window.tree.get_children():
-            self.window.parent.main_window.tree.delete(item)
         self.window.parent.main_window.controller.populate_list()
