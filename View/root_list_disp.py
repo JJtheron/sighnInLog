@@ -5,6 +5,8 @@ from View.edit_create_form import entry_window
 from View.create_tagged_user import entry_window_tagged
 from View.edit_entry import Edit_entry
 from Controler.C_root_list_dsip import c_root_list_dsip
+import RPi.GPIO as GPIO
+
 
 class main_window(tk.Tk):
     def __init__(self):
@@ -36,6 +38,7 @@ class main_window(tk.Tk):
  
     def on_closing(self):
         if messagebox.askokcancel("Quit", "Do you want to quit?"):
+            GPIO.cleanup()
             self.destroy()
 
     # Function to handle 'Check In' button click
@@ -46,11 +49,11 @@ class main_window(tk.Tk):
         entry_window(child)
 
     # enter a newtag assiciated with person
-    def check_in_tag(self):
+    def check_in_tag(self,tag="0000"):
         child = tk.Toplevel(self)
         child.transient(self)
         child.main_window = self
-        entry_window_tagged(child)
+        entry_window_tagged(child,tag)
 
 
     # Function to handle row click

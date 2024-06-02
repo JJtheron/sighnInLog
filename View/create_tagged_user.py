@@ -4,7 +4,7 @@ from tkinter import messagebox
 from Controler.C_create_tagged_user import c_entry_window_tag
 
 class entry_window_tagged(tk.Frame):
-    def __init__(self,parent):
+    def __init__(self,parent,tag):
         super().__init__(parent)
         parent.title("User Information+Tag")
         self.grid(row=0, column=0, padx=10, pady=10)
@@ -14,6 +14,7 @@ class entry_window_tagged(tk.Frame):
         self.labels = []
         self.controller = c_entry_window_tag(self)
         get_user_info = {"Name": tk.StringVar(), "Company Name": tk.StringVar(), "Phone Number": tk.StringVar(), "Tag#": tk.StringVar()}
+        get_user_info["Tag#"].set(tag)
         # Create labels and entry fields
         labels = list(get_user_info.keys())
 

@@ -10,6 +10,7 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
+            "python": "/home/theronj/Documents/sighn_in_project/sighnInLog/venv/bin/python3"
         }
     ]
 }
