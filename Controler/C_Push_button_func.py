@@ -14,11 +14,14 @@ class check_out_check_in_users():
                                       "sighn_in_sighn_out")
     def checkin_known_user(self,tag):
         entry = self.WRdata.look_up_user_info(tag)
-        print("______________________________")
-        print(entry)
         entry["time_in"] = time.strftime('%Y-%m-%d %H:%M:%S')
         entry["time_out"] = None
         entry["tag"] = entry["tag_id"]
         entry["visiting_who"] = None
-        print("______________________________")
         self.WRdata.add_record(entry)
+    
+    def checkout_known_user(self, tag):
+        id_data = self.WRdata.get_lat_tag_login(tag)
+        entry = self.WRdata.get_spisific_rec(id_data)
+        entry["time_out"] = time.strftime('%Y-%m-%d %H:%M:%S')
+        self.WRdata.change_record(id_data,entry)

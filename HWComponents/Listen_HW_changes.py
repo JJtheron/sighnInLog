@@ -97,6 +97,11 @@ class readCheckOUTButton():
             self.rfid = rfid
             self.button_pushedT = Thread(target=self.button_pushed,name="button_therad_checkOUT")
 
+        def actions_on_program(self,user_id):
+             cccontroller = check_out_check_in_users()
+             cccontroller.checkout_known_user(user_id)
+             self.gvar.main_window.controller.populate_list()
+
         def button_pushed(self):
             end_time = time.time() + 5
             t_now = time.time()
@@ -105,6 +110,7 @@ class readCheckOUTButton():
                 if self.gvar.SHARED_MEM:
                     if(self.gvar.last_id_chek_out != self.gvar.SHARED_MEM):
                         print(self.gvar.SHARED_MEM)
+                        self.actions_on_program(self.gvar.SHARED_MEM)
                         self.gvar.last_id_chek_out = self.gvar.SHARED_MEM
                         self.gvar.SHARED_MEM = ""
                     

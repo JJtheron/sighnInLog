@@ -145,6 +145,16 @@ class Read_write_data():
         self.mycursor.execute(sqlshow)
         return self.mycursor.fetchall()[0][0]
     
+    def get_lat_tag_login(self,tag):
+        sql=f"""SELECT en_id FROM sign_in_sheet
+        WHERE tag='{tag}'
+        ORDER BY time_in
+        DESC LIMIT 1
+        """
+        print(sql)
+        self.mycursor.execute(sql)
+        return self.mycursor.fetchall()[0][0]
+    
 if __name__ == "__main__":
     print("")
     print("++++++++++++++++++++++++++++++populate database and look at keys++++++++++++++++++++++++")
