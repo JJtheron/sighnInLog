@@ -71,19 +71,13 @@ class Read_write_data():
         return rec_1
     
     def add_record(self,rec_add):
-        sql = "INSERT INTO sign_in_sheet (name, time_in, time_out, company, visiting, phone_number) VALUES (%s,%s,%s,%s,%s,%s)"
-        val = (rec_add["name"],rec_add["time_in"], rec_add["time_out"],rec_add["company_name"], rec_add["visiting_who"],rec_add["phone"])
-        sqlshow = f"""SELECT  en_id from sign_in_sheet where 
-        name='{rec_add["name"]}' AND
-        time_in='{rec_add["time_in"]}' AND
-        company='{rec_add["company_name"]}' AND
-        visiting='{rec_add["visiting_who"]}' AND
-        phone_number='{rec_add["phone"]}'
-        """
+        sql = "INSERT INTO sign_in_sheet (name, time_in, time_out, company, visiting, phone_number,tag) VALUES (%s,%s,%s,%s,%s,%s,%s)"
+        val = (rec_add["name"],rec_add["time_in"], rec_add["time_out"],rec_add["company_name"], rec_add["visiting_who"],rec_add["phone"],rec_add["tag"])
+
         self.mycursor.execute(sql, val)
         self.mydb.commit()
-        self.mycursor.execute(sqlshow)
-        return self.mycursor.fetchall()[0][0]
+  
+        return self.mycursor.lastrowid
     
     def change_record(self,key,new_record):
         if new_record["time_out"]:

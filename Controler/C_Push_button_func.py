@@ -18,6 +18,7 @@ class check_out_check_in_users():
         print(entry)
         entry["time_in"] = time.strftime('%Y-%m-%d %H:%M:%S')
         entry["time_out"] = None
+        entry["tag"] = entry["tag_id"]
         entry["visiting_who"] = None
         print("______________________________")
         self.WRdata.add_record(entry)
