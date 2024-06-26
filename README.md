@@ -1,5 +1,5 @@
 **Sighn in kiosk:** <br>
-The iea for this program came from contractors at work sighning into a paper logbook. The problem with this was that they kept it in a toolbox outside and 
+The idea for this program came from contractors at work sighning into a paper logbook. The problem with this was that they kept it in a toolbox outside and 
 the wind and the rain would destroy the record of them being on site.
 
 **Idea:** <br>
