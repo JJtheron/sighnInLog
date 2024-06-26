@@ -10,7 +10,7 @@ to a external USB drive. In the case of a evacuation you will be able just grab 
 
 * x1) [Raspberry Pi 4 b] (https://www.adafruit.com/product/4295?src=raspberrypi)
 * x1) [Push buttons] (https://a.co/d/06vNeSJQ)
--x1) [Whire] (https://a.co/d/0abhsdWm)
--x1) [5" Monitor] (https://a.co/d/067CIb1N)
--x1) [Box] (https://a.co/d/0268DwQc)
--x1) [RFID components] (https://a.co/d/02DW074d)
+* x1) [Whire] (https://a.co/d/0abhsdWm)
+* x1) [5" Monitor] (https://a.co/d/067CIb1N)
+* x1) [Box] (https://a.co/d/0268DwQc)
+* x1) [RFID components] (https://a.co/d/02DW074d)
